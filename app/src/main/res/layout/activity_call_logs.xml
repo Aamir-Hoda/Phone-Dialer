@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".CallLogsActivity">
 
+    <!--RecyclerView will be replacing ListView over here.-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/callLogsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp" />
+
     <ListView
         android:id="@+id/callLogsListView"
         android:layout_width="0dp"

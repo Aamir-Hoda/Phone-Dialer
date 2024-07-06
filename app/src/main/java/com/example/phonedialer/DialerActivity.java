@@ -1,6 +1,5 @@
 package com.example.phonedialer;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -30,15 +29,19 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.phonedialer.databinding.ActivityDialerBinding;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static android.provider.ContactsContract.*;
 import static java.util.Arrays.asList;
 
-public class MainActivity extends AppCompatActivity {
-
+public class DialerActivity extends AppCompatActivity {
+    private static final String TAG = "DialerActivity";
     /*HAVE TO CHECK HOW TO SET MY APP AS DEFAULT APP FOR CALLING FUNCTIONALITY.*/
+
+    private ActivityDialerBinding activityDialerBinding;
 
     Intent callIntent;
     TelecomManager telecomManager;
@@ -58,9 +61,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        activityDialerBinding = ActivityDialerBinding.inflate(getLayoutInflater());
+        setContentView(activityDialerBinding.getRoot());
+        Log.i(TAG, "onCreate: fired!");
 
-        Log.i("ON_CREATE", "MainActivity");
+        getSupportActionBar().setIcon();
 
         numPadGV = findViewById(R.id.numPadGridView);
         objArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, numberPadAL);
@@ -165,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i("ON_START", "MainActivity");
+        Log.i("ON_START", "DialerActivity");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -184,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("ON_RESUME", "MainActivity");
+        Log.i("ON_RESUME", "DialerActivity");
 
         if(!phoneNumberET.getText().toString().matches(""))
         {
@@ -195,14 +201,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i("ON_PAUSE", "MainActivity");
+        Log.i("ON_PAUSE", "DialerActivity");
         phoneNumberET.clearFocus();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i("ON_STOP", "MainActivity");
+        Log.i("ON_STOP", "DialerActivity");
     }
 
     @Override
@@ -210,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         objMyListener.myOnDestroy();
-        /*This should remove the reference of MainActivity in MyListener class, thus allowing GC to free memory after MainActivity
+        /*This should remove the reference of DialerActivity in MyListener class, thus allowing GC to free memory after DialerActivity
         * is destroyed.*/
     }
 
@@ -320,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
@@ -373,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         if(item.getItemId() == R.id.add_contact)
         {

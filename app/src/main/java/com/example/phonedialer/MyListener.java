@@ -7,13 +7,13 @@ import android.widget.AdapterView;
 
 public class MyListener implements AdapterView.OnItemClickListener, View.OnLongClickListener {
 
-    MainActivity objMainActivity;
+    DialerActivity objDialerActivity;
     //Context context;
     static MyListener myListenerInstance;
 
     MyListener(Context context)
     {
-        objMainActivity = (MainActivity) context;
+        objDialerActivity = (DialerActivity) context;
         //this.context = context;
         Log.i("MY_LISTENER_CONSTRUCTOR", "Inside MyListener Parameterized Constructor.");
     }
@@ -35,10 +35,10 @@ public class MyListener implements AdapterView.OnItemClickListener, View.OnLongC
         {   context = null; }*/
 
         Log.i("MY_ON_DESTROY", "myOnDestroy called from MyListener.");
-        if(objMainActivity != null)
+        if(objDialerActivity != null)
         {
-            Log.i("OBJ_MAIN_ACTIVITY", "objMainActivity was not null.");
-            objMainActivity = null;
+            Log.i("OBJ_MAIN_ACTIVITY", "objDialerActivity was not null.");
+            objDialerActivity = null;
         }
     }
 
@@ -55,7 +55,7 @@ public class MyListener implements AdapterView.OnItemClickListener, View.OnLongC
         if(view.getId() == R.id.eraseNumButton)
         {
             Log.i("ERASE_BTN", "Erase Button was clicked.");
-            objMainActivity.phoneNumberET.getText().clear();
+            objDialerActivity.phoneNumberET.getText().clear();
         }
         Log.i("ON_LONG_CLICK", "Logging from MyListener");
 
